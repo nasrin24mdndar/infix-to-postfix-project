@@ -1,0 +1,50 @@
+adad=['0' , '1' , '2' , '3' , '4' , '5' , '6' ,'7' , '8' ,'9']
+operatorrs=['(' , ')' , '+' , '-' , '*' , '/' , '^']
+martabe={'^':3 , '*':2 , '/':2 , '+':1 , '-':1}
+
+# *************************************************************************************
+# این تابع کامل برای تبدیل میانوندی به پسوندی است (هم حروفی هم عددی) 
+def in_to_post(example):
+    list_exp = example.split(' ')
+    arr1=[]
+    sstack1=[]
+
+    for i in list_exp:
+        if i.isnumeric() or i.isalpha():
+            arr1.append(i)
+        elif i=='(':
+            sstack1.append(i)
+        elif i==')':
+            while sstack1 and sstack1[-1] != '(':
+                arr1.append(sstack1.pop())
+                sstack1.pop()
+        elif i in operatorrs:
+            sstack1.append(i)
+            p=-1
+            while len(sstack1)>1:
+                if martabe[sstack1[p]]<=martabe[sstack1[p-1]]:
+                    arr1.append(sstack1[p-1])
+                    del sstack1[p-1]
+                if p>len(sstack1)*(-1):
+                    p-=1
+                #  میخوام بگم اخری و با قبلیش مقایسه کن اگه مرتبه ش 
+                    # کمتر بود، بزار قبلیش بپره.
+                    # چجوری اخری و با قبلیش مقایسه کنم؟
+
+                    
+            # if len(sstack1)>1:
+            #     for item in sstack1[1:]:                
+            #         if martabe[sstack1[0]] >= martabe[item]:
+            #             arr1.append(sstack1[0])
+            #             del sstack1[0]
+    while sstack1:
+        arr1.append(sstack1.pop())
+    javab=' '.join(arr1)
+    return javab 
+# ***************************************************************************************
+# print(in_to_post('2 * 3 + 5'))
+print(in_to_post('3 * x + x ^ 2 + 5'))
+# print(in_to_post('3 * 2 / 4'))
+# print(in_to_post(''))
+# ***************************************************************************************
+# def post_to_in(example):
